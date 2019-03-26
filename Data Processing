@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# import datafile
+df = pd.read_csv("C:\\...\\datafile.csv", sep="\,").apply(lambda x: x.str.replace(r"\"",""))
+df.columns=[['Hours','Scores']]
+df
+
+************************
+	Hours	Scores
+0	2.5	21
+1	5.1	47
+2	3.2	27
+************************
+
+# check duplicated, but not applicable to this question
+print(any(df['Hours'].duplicated()))   
+
+# check missing
+df.isnull().values.any()
