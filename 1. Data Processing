@@ -19,3 +19,8 @@ print(any(df['Hours'].duplicated()))
 
 # check missing
 df.isnull().values.any()
+
+# convert categorical into numerical
+from sklearn.preprocessing import LabelEncoder
+df2=df1.apply(LabelEncoder().fit_transform)
+
