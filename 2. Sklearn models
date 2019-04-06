@@ -1,27 +1,71 @@
-# Feature Scaling (Categorical to numerical)
+# Feature Scaling 
+## StandardScaler() to normalize the features
 from sklearn.preprocessing import StandardScaler
 scaler=StandardScaler()
-x_train=scaler.fit_transform(train[['Gender','Age']])
-x_test=scaler.fit_transform(test[['Gender','Age']])
-
+x_train=scaler.fit_transform(train[['Var1','Var2']])
+x_test=scaler.fit_transform(test[['Var1','Var2']])
+----------------------------------------------------------------------------------------
 # split into train & test
 from sklearn.model_selection import train_test_split
-train,test=train_test_split(df,test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)  
 
-y = train["Hours"] 
-x = train["Scores"]  
-
-
-from sklearn.linear_model import LinearRegression
-from sklearn.linear_model import LogisticRegression
-
+----------------------------------------------------------------------------------------
 # Linear Regression
+from sklearn.linear_model import LinearRegression
 model = LinearRegression()
 model = model.fit(x, y)
-
+----------------------------------------------------------------------------------------
 # Logistic Regression
+from sklearn.linear_model import LogisticRegression
 model = LogisticRegression()
 model.fit(x_train, y_train)
+----------------------------------------------------------------------------------------
+# Train KNN and prediction
+from sklearn.neighbors import KNeighborsClassifier  
+model = KNeighborsClassifier(n_neighbors=5)  # 5 is the common choice
+model.fit(X_train, y_train)  
+
+## The mean of error for all the predicted values where K ranges from 1 and 40.
+error = []
+## Calculating error for K values between 1 and 40
+for i in range(1, 40):  
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(X_train, y_train)
+    pred_i = knn.predict(X_test)
+    error.append(np.mean(pred_i != y_test))
+    
+## plot the error values against K values
+plt.figure(figsize=(12, 6))  
+plt.plot(range(1, 40), error, color='red', linestyle='dashed', marker='o',  
+         markerfacecolor='blue', markersize=10)
+plt.title('Error Rate K Value')  
+plt.xlabel('K Value')  
+plt.ylabel('Mean Error')  
+----------------------------------------------------------------------------------------
+# Decision Trees
+from sklearn.tree import DecisionTreeClassifier
+classifier=DecisionTreeClassifier()
+classifier.fit(X_train,y_train)
+y_pred=classifier.predict(X_test)
+
+## Visualize the tree
+from sklearn.externals.six import StringIO  
+from IPython.display import Image  
+from sklearn.tree import export_graphviz
+import pydotplus
+
+dot_data = StringIO()
+export_graphviz(classifier, out_file=dot_data,  
+                filled=True, rounded=True,
+                special_characters=True)
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+Image(graph.create_png())
+
+from sklearn.tree import DecisionTreeRegressor
+regressor=DecisionTreeRegressor()
+regressor.fit(X_train,y_train)
+y_pred=regressor.predict(X_test)
+----------------------------------------------------------------------------------------
 
 
 y_predict = model.predict(test["Scores"])
@@ -29,3 +73,15 @@ y_predict
 
 # Model validation
 model.score(x,y)
+
+# Classification report + Confusion matrix
+from sklearn.metrics import classification_report, confusion_matrix  
+print(confusion_matrix(y_test, y_pred))  
+print(classification_report(y_test, y_pred))  
+
+from sklearn import metrics  
+print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))  
+print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))  
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred))) 
+
+print('Mean Squared Error 1:', metrics.mean_squared_error(y_train, y_pred))  
