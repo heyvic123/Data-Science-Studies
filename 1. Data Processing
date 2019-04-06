@@ -24,3 +24,34 @@ df.isnull().values.any()
 from sklearn.preprocessing import LabelEncoder
 df2=df1.apply(LabelEncoder().fit_transform)
 
+-------------------------------------------------------------------------------------------
+# NaN will be encoded as the last level
+df_1 = df
+mask = df_1.isnull()
+
+df = df.astype(str).apply(preprocessing.LabelEncoder().fit_transform)
+df1=df.where(~mask, df)
+df1
+-------------------------------------------------------------------------------------------
+
+# Remove constant features / columns
+from sklearn.feature_selection import VarianceThreshold
+thresholder = VarianceThreshold(threshold=0)
+thresholder.fit(df1)
+
+## print column names that have been removed
+removed_col = [column for column in df1.columns  
+                    if column not in df1.columns[thresholder.get_support()]]
+
+print(removed_col)  
+
+## print remaining columns
+print(df1.columns[thresholder.get_support()])  
+test = thresholder.transform(df1)  
+print(test.shape)
+
+
+
+test
+
+
