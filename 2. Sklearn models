@@ -66,6 +66,51 @@ regressor=DecisionTreeRegressor()
 regressor.fit(X_train,y_train)
 y_pred=regressor.predict(X_test)
 ----------------------------------------------------------------------------------------
+# Random Forest
+from sklearn.ensemble import RandomForestRegressor
+# Instantiate model with 1k decision trees
+rf=RandomForestRegressor(n_estimators=1000,random_state=42)
+rf.fit(features_train,labels_train)
+labels_pred=rf.predict(features_test)
+
+# Visualize
+# limit the depth of trees in the forest to produce an understandable image.
+# Instantiate model with 10 decision trees & Limit depth of tree to 3 levels
+
+import os     
+os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
+
+from sklearn.externals.six import StringIO  
+from IPython.display import Image  
+import pydotplus
+from sklearn.tree import export_graphviz
+import pydot
+
+# Visualizing a Single Decision Tree
+# pull 1 tree from the forest
+tree=rf.estimators_[5]
+dot_data = StringIO()
+export_graphviz(tree, out_file=dot_data,feature_names=features_list,filled=True, rounded=True,
+                special_characters=True,precision=1)
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+Image(graph.create_png())
+
+# Variable Importance
+# How much can a variable improve predictions (Only numerical features)
+importances=list(rf.feature_importances_)
+feature_importances=[(feature,round(importance,2)) for feature, importance in zip(features_list,importances)]
+# sort by most important first
+feature_importances=sorted(feature_importances,key=lambda x:x[1], reverse=True)
+[print('Variable: {:20} Importance: {}'.format(*pair)) for pair in feature_importances];
+
+# Visualize those importance features
+# list of x locations for plotting
+x_values = list(range(len(importances)))
+plt.bar(x_values, importances, orientation = 'vertical')
+plt.xticks(x_values, features_list, rotation='vertical')
+plt.ylabel('Importance'); plt.xlabel('Variable'); plt.title('Variable Importances');
+----------------------------------------------------------------------------------------
+
 
 
 y_predict = model.predict(test["Scores"])
@@ -79,6 +124,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 print(confusion_matrix(y_test, y_pred))  
 print(classification_report(y_test, y_pred))  
 
+# MAE, MSE
 from sklearn import metrics  
 print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))  
 print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))  
