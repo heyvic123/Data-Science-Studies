@@ -23,4 +23,8 @@ This section is to list out the Machine Learning techniques I have learned:
 
 10: Project - Customer Transaction Prediction in Santander bank (AUC ~ 0.90)
 
-11: CatBoosting, XGBoosting, AdaBoosting, Light GBM
+11: CatBoosting, Gradient Boosting, XGBoosting, AdaBoosting, Light GBM
+
+12: Web scrapping with BeautifulSoup
+
+13: Web scrapping with Selenium
