@@ -131,3 +131,36 @@ print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
 print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred))) 
 
 print('Mean Squared Error 1:', metrics.mean_squared_error(y_train, y_pred))  
+
+# DECILES 
+def decile (row):
+  if row['Good'] <= p_dec[1]:
+    return 0
+  ...
+  if row['Good'] <= p_dec[9]:
+    return 8
+  if row['Good'] <= 20:
+    return 9
+  return -1
+
+## Array of Deciles:
+def decile_array(ml):
+  list_to_np=[]
+  for item in ml:
+    list_to_np.append(item[0])
+  p_np=np.array(list_to_np)
+  p_dec=np.percentile(p_np,np.arrange(0,100,10))
+  return(p_dec)
+  print(p_dec)
+  
+  
+  
+
+
+
+  
+    
+
+  
+
+
