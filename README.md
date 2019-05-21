@@ -42,8 +42,6 @@ List of personal projects / online competitions I have worked on:
 a. Exploratory Data Analysis with Pandas
    Project - Graduate Admission (Precision > 90%)
     
-b. Project - Loan Prediction III (Precision ~87%) 
-
-c. Project - Customer Transaction Prediction in Santander bank (AUC ~ 0.90)
+b. Project - Customer Transaction Prediction in Santander bank (AUC ~ 0.90)
 
 ```
