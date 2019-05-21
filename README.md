@@ -1,7 +1,8 @@
-# Machine-Learning-Studies
+## Machine-Learning-Studies
 
 This section is to list out the Machine Learning techniques I have learned:
 
+```
 01: Data Processing
 
 02: Linear Regression
@@ -16,15 +17,33 @@ This section is to list out the Machine Learning techniques I have learned:
 
 07: Random Forest 
 
-08: Exploratory Data Analysis with Pandas
-    Project - Graduate Admission (Precision > 90%)
+08: CatBoosting, Gradient Boosting, XGBoosting, AdaBoosting
+
+09: Light GBM
+
+```
+
+## Other Data Science skills
+
+Some other techniques I have learned apart from Machine Learning:
+
+```
+i. Web scrapping with BeautifulSoup & Selenium
+
+ii. Flask using API/ HTML / CSS
+
+```
+
+## Projects 
+
+List of personal projects / online competitions I have worked on:
+
+```
+a. Exploratory Data Analysis with Pandas
+   Project - Graduate Admission (Precision > 90%)
     
-09: Project - Loan Prediction III (Precision ~87%) 
+b. Project - Loan Prediction III (Precision ~87%) 
 
-10: Project - Customer Transaction Prediction in Santander bank (AUC ~ 0.90)
+c. Project - Customer Transaction Prediction in Santander bank (AUC ~ 0.90)
 
-11: CatBoosting, Gradient Boosting, XGBoosting, AdaBoosting, Light GBM
-
-12: Web scrapping with BeautifulSoup
-
-13: Web scrapping with Selenium
+```
